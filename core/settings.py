@@ -23,9 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv('SECRET_KEY')) or '65fcvj786t5t8ys4drt7t7'
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.getenv('DEBUG')) or True
+# SECRET_KEY = str(os.getenv('SECRET_KEY')) 
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = str(os.getenv('DEBUG')) or True
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+
 
 ALLOWED_HOSTS = []
 
@@ -45,6 +50,7 @@ INSTALLED_APPS = [
     
     # custom apps
     'apps.news',
+    'apps.accounts',
     'apps.base',
     'apps.blog',
 ]
@@ -127,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'ASIA/TASHKENT'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -150,6 +156,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # CKEditor 5 configuration
 CKEDITOR_5_CONFIGS = {
@@ -168,3 +175,4 @@ CKEDITOR_5_CONFIGS = {
         }
     }
 }
+
