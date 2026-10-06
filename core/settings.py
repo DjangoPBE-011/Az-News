@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+DEBUG = os.getenv('DEBUG') == 'True'
 
 
 ALLOWED_HOSTS = []
@@ -99,11 +99,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(os.getenv('NAME')),
-        'USER': str(os.getenv('USER')),
-        'PASSWORD': str(os.getenv('PASSWORD')),
-        'HOST': str(os.getenv('HOST')),
-        'PORT': str(os.getenv('PORT')),
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': int(os.getenv('PORT')),
     }
 }
 
@@ -158,21 +158,58 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-# CKEditor 5 configuration
+# # CKEditor 5 configuration
 CKEDITOR_5_CONFIGS = {
     'default': {
-        'toolbar': ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload'],
+        'toolbar': [
+            'heading', '|', 'bold', 'italic', 'link',
+            'bulletedList', 'numberedList', 'blockQuote', 'imageUpload',
+        ],
     },
+
     'extends': {
         'blockToolbar': [
             'paragraph', 'heading1', 'heading2', 'heading3',
-            '|', 'bulletedList', 'numberedList', 'todoList'
+            '|', 'bulletedList', 'numberedList', 'todoList',
         ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough', 'code', 'subscript'],
-        'image': {
-            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'],
-            'styles': ['full', 'alignLeft', 'alignCenter', 'alignRight']
-        }
-    }
-}
 
+        'toolbar': [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', 'code',
+            'subscript', 'superscript', 'highlight', '|',
+            'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+            'alignment', 'bulletedList', 'numberedList', 'outdent', 'indent', '|',
+            'link', 'insertImage', 'insertTable', 'blockQuote', 'codeBlock', 'mediaEmbed', '|',
+            'removeFormat', 'undo', 'redo', '|',
+            'sourceEditing',
+        ],
+
+        'image': {
+            'toolbar': [
+                'imageTextAlternative', '|',
+                'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+            ],
+            'styles': ['full', 'alignLeft', 'alignCenter', 'alignRight'],
+        },
+
+        'table': {
+            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells'],
+        },
+
+        'heading': {
+            'options': [
+                {'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph'},
+                {'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2'},
+                {'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3'},
+                {'model': 'heading4', 'view': 'h4', 'title': 'Heading 4', 'class': 'ck-heading_heading4'},
+            ],
+        },
+
+        # Source rejimida yozilgan HTML (iframe, style, class) saqlashda o'chib ketmasligi uchun
+        'htmlSupport': {
+            'allow': [
+                {'name': '/.*/', 'attributes': True, 'classes': True, 'styles': True},
+            ],
+        },
+    },
+}

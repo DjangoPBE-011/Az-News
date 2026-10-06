@@ -28,99 +28,79 @@
                     <div class="col-lg-8">
                         <!-- Trending Top -->
                         <div class="trending-top mb-30">
-                            <div class="trend-top-img">
-                                <img src="{% static 'assets/img/trending/trending_top.jpg' %}" alt="">
+                            <div class="trend-top-img" style="width: 100%; height: 400px; overflow: hidden;">
+                                {% if most_new.image %}
+                                    <img src="{{ most_new.image.url }}"
+                                        alt=""
+                                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                {% else %}
+                                    <img src="{% static 'assets/img/trending/trending_top.jpg' %}"
+                                        alt=""
+                                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                {% endif %}
+
                                 <div class="trend-top-cap">
-                                    <span>Appetizers</span>
-                                    <h2><a href="details.html">Welcome To The Best Model Winner<br> Contest At Look of the year</a></h2>
+                                    <span>{{ most_new.category }}</span>
+                                    <h2>
+                                        <a href="{% url 'news:details' most_new.id %}">{{ most_new.title }}</a>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
                         <!-- Trending Bottom -->
                         <div class="trending-bottom">
                             <div class="row">
-                                <div class="col-lg-4">
-                                <div class="single-bottom mb-35">
-                                    <div class="trend-bottom-img mb-30">
-                                        <img src="{% static 'assets/img/trending/trending_bottom1.jpg' %}" alt="">
-                                    </div>
-                                    <div class="trend-bottom-cap">
-                                        <span class="color1">Lifestyple</span>
-                                        <h4><a href="details.html">Get the Illusion of Fuller Lashes by “Mascng.”</a></h4>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="single-bottom mb-35">
-                                        <div class="trend-bottom-img mb-30">
-                                            <img src="{% static 'assets/img/trending/trending_bottom2.jpg' %}" alt="">
-                                        </div>
-                                        <div class="trend-bottom-cap">
-                                            <span class="color2">Sports</span>
-                                            <h4><h4><a href="details.html">Get the Illusion of Fuller Lashes by “Mascng.”</a></h4></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="single-bottom mb-35">
-                                        <div class="trend-bottom-img mb-30">
-                                            <img src="{% static 'assets/img/trending/trending_bottom3.jpg' %}" alt="">
-                                        </div>
-                                        <div class="trend-bottom-cap">
-                                            <span class="color3">Travels</span>
-                                            <h4><a href="details.html"> Welcome To The Best Model Winner Contest</a></h4>
+                                {% for news in news1 %}
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div class="single-bottom mb-35">
+                                            <div class="trend-bottom-img mb-30" style="width: 100%; height: 200px; overflow: hidden;">
+                                                {% if news.image %}
+                                                    <img src="{{ news.image.url }}"
+                                                        alt=""
+                                                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                                {% else %}
+                                                    <img src="{% static 'assets/img/trending/trending_bottom2.jpg' %}"
+                                                        alt=""
+                                                        style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                                {% endif %}
+                                            </div>
+                                            <div class="trend-bottom-cap">
+                                                <span class="color1">{{ news.category }}</span>
+                                                <h4>
+                                                    <a href="{% url 'news:details' news.id %}">{{ news.title | truncatewords:6}}</a>
+                                                </h4>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endfor %}
+                              
                             </div>
                         </div>
                     </div>
                     <!-- Riht content -->
-                    <div class="col-lg-4">
-                        <div class="trand-right-single d-flex">
-                            <div class="trand-right-img">
-                                <img src="{% static 'assets/img/trending/right1.jpg' %}" alt="">
-                            </div>
-                            <div class="trand-right-cap">
-                                <span class="color1">Concert</span>
-                                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-                            </div>
-                        </div>
-                        <div class="trand-right-single d-flex">
-                            <div class="trand-right-img">
-                                <img src="{% static 'assets/img/trending/right2.jpg' %}" alt="">
-                            </div>
-                            <div class="trand-right-cap">
-                                <span class="color3">sea beach</span>
-                                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-                            </div>
-                        </div>
-                        <div class="trand-right-single d-flex">
-                            <div class="trand-right-img">
-                                <img src="{% static 'assets/img/trending/right3.jpg' %}" alt="">
-                            </div>
-                            <div class="trand-right-cap">
-                                <span class="color2">Bike Show</span>
-                                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-                            </div>
-                        </div> 
-                        <div class="trand-right-single d-flex">
-                            <div class="trand-right-img">
-                                <img src="{% static 'assets/img/trending/right4.jpg' %}" alt="">
-                            </div>
-                            <div class="trand-right-cap">
-                                <span class="color4">See beach</span>
-                                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-                            </div>
-                        </div>
-                        <div class="trand-right-single d-flex">
-                            <div class="trand-right-img">
-                                <img src="{% static 'assets/img/trending/right5.jpg' %}" alt="">
-                            </div>
-                            <div class="trand-right-cap">
-                                <span class="color1">Skeping</span>
-                                <h4><a href="details.html">Welcome To The Best Model Winner Contest</a></h4>
-                            </div>
+                   <div class="col-lg-4">
+                        <div class="trand-right-single">
+
+                            {% for news in news2 %}
+
+                                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+
+                                    <div class="trand-right-img">
+                                        <img src="{{ news.image.url }}" alt=""
+                                            style="width: 100px; height: 100px; object-fit: cover;">
+                                    </div>
+
+                                    <div class="trand-right-cap" style="margin-left: 15px;">
+                                        <span class="color1">{{ news.category }}</span>
+                                        <h4 style="margin: 5px 0 0;">
+                                            <a href="{% url 'news:details' news.id %}">{{ news.title | truncatewords:6}}</a>
+                                        </h4>
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>
